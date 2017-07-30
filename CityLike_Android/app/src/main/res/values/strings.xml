@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CityLike</string>
+
+    <!-- Activity Login -->
+    <string name="title_activity_login">Login</string>
+    <string name="login_activity_button_sign_in">Sign in</string>
+    <string name="login_activity_terms_of_service">Terms of Service</string>
+    <string name="login_activity_city_like">CityLike</string>
+
+
+</resources>
