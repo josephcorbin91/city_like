@@ -1,17 +1,13 @@
-package com.android.jco.citylike_android.activities;
+package com.android.jco.citylike_android.activities.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.android.jco.citylike_android.BuildConfig;
 import com.android.jco.citylike_android.R;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
 public class SplashScreen extends AppCompatActivity {
@@ -35,12 +31,12 @@ public class SplashScreen extends AppCompatActivity {
                             super.run();
 
 
-                            sleep(10000);
+                            sleep(4000);
                 } catch (Exception e) {
 
                 } finally {
 
-                    Intent startLoginActivity = new Intent(SplashScreen.this, LoginActivity.class);
+                    Intent startLoginActivity = new Intent(SplashScreen.this, SwipingActivity.class);
                     startActivity(startLoginActivity);
                     finish();
                 }

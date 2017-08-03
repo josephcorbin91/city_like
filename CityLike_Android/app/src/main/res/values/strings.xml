@@ -8,4 +8,9 @@
     <string name="login_activity_city_like">CityLike</string>
 
 
+
+    <!-- Activity Swiping -->
+    <string name="title_activity_swiping">Swiping</string>
+
+
 </resources>
