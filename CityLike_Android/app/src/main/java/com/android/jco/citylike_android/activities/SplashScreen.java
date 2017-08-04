@@ -1,4 +1,4 @@
-package com.android.jco.citylike_android.activities.Activities;
+package com.android.jco.citylike_android.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

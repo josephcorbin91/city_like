@@ -1,4 +1,4 @@
-package com.android.jco.citylike_android.activities.Activities;
+package com.android.jco.citylike_android.activities;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
