@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var databaseSchema = mongoose.Schema;
 
 
-var seattleDataSchema = new Schema({
+var seattleDataSchema = new databaseSchema({
    permit_number: Number,
    permit_type: String,  
    address: String,
@@ -18,18 +18,7 @@ var seattleDataSchema = new Schema({
    current_status: String,
    
    
-  }
-  
-  
-  
-  
-  status: {
-    type: [{
-      type: String,
-      enum: ['pending', 'ongoing', 'completed']
-    }],
-    default: ['pending']
-  }
+ 
 });
 
-module.exports = mongoose.model('seattleData', seattleDataSchema);
+module.exports = mongoose.model('seattleBuildingPermit', seattleDataSchema);
