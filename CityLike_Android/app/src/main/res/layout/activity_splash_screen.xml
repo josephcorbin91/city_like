@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.android.jco.citylike_android.activities.SplashScreen">
+    tools:context=".activities.SplashScreen">
 
 
     <ImageView

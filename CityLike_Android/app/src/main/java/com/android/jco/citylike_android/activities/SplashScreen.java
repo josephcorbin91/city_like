@@ -3,15 +3,11 @@ package com.android.jco.citylike_android.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.android.jco.citylike_android.BuildConfig;
 import com.android.jco.citylike_android.R;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
 public class SplashScreen extends AppCompatActivity {
@@ -35,12 +31,16 @@ public class SplashScreen extends AppCompatActivity {
                             super.run();
 
 
+<<<<<<< HEAD
                             sleep(3500);
+=======
+                            sleep(4000);
+>>>>>>> 740e5d85b072c3562115cf018b32f0c1adfb2e91
                 } catch (Exception e) {
 
                 } finally {
 
-                    Intent startLoginActivity = new Intent(SplashScreen.this, LoginActivity.class);
+                    Intent startLoginActivity = new Intent(SplashScreen.this, SwipingActivity.class);
                     startActivity(startLoginActivity);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
