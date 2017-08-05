@@ -29,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         try{
             login_activity_video.setMediaController(mediaControls);
             login_activity_video.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.seattle_skyline_video));
+
+
         }
         catch (Exception exception){
             Log.e("Error", exception.getMessage());
@@ -38,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
         login_activity_video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
+                mediaPlayer.setLooping(true);
+                login_activity_video.setMediaController(null);
+
                 login_activity_video.start();
             }
         });

@@ -35,14 +35,14 @@ public class SplashScreen extends AppCompatActivity {
                             super.run();
 
 
-                            sleep(10000);
+                            sleep(3500);
                 } catch (Exception e) {
 
                 } finally {
 
                     Intent startLoginActivity = new Intent(SplashScreen.this, LoginActivity.class);
                     startActivity(startLoginActivity);
-                    finish();
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             }
         };

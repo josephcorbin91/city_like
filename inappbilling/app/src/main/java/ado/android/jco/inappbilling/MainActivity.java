@@ -21,7 +21,11 @@ import util.Purchase;
 
         private static final String TAG = "InAppBilling";
         IabHelper mHelper;
-        static final String ITEM_SKU = "android.test.purchased";
+        static final String FIFTY_KEYS = "FIFTY_KEYS";
+        static final String HUNDRED_KEYS = "HUNDRED_KEYS";
+        static final String TWO_HUNDRED_KEYS = "TWO_HUNDRED_KEYS";
+        static final String THREE_HUNDRED_KEYS = "THREE_HUNDRED_KEYS";
+        static final String FOUR_HUNDRED_KEYS = "FOUR_HUNDRED_KEYS";
 
         private Button clickButton;
         private Button buyButton;
@@ -61,7 +65,7 @@ import util.Purchase;
 
         public void buyClick(View view){
             try {
-                mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001, mPurchaseFinishedLater, "mypurchasetoken");
+                mHelper.launchPurchaseFlow(this, FIFTY_KEYS, 10001, mPurchaseFinishedLater, "mypurchasetoken");
             }
             catch (Exception ex){
 
@@ -82,7 +86,7 @@ import util.Purchase;
                 if(result.isFailure()){
                     return;
                 }
-                else if(info.getSku().equals(ITEM_SKU)){
+                else if(info.getSku().equals(FIFTY_KEYS)){
                     consumeItem();
                     buyButton.setEnabled(true);
                 }
@@ -92,6 +96,7 @@ import util.Purchase;
         public void consumeItem(){
             try {
                 mHelper.queryInventoryAsync(mReceivedInventoryListener);
+
             }
             catch(Exception ex){
 
@@ -106,7 +111,7 @@ import util.Purchase;
                 }
                 else {
                     try {
-                        mHelper.consumeAsync(inv.getPurchase(ITEM_SKU), mConsumeFinishedListener);
+                        mHelper.consumeAsync(inv.getPurchase(FIFTY_KEYS), mConsumeFinishedListener);
                     }
                     catch (Exception ex){
 
