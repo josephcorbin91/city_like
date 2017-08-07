@@ -1,0 +1,9 @@
+USEFUL INFORMATION 
+
+data.seattle json query for mongoose database
+BASE QUERY
+https://data.seattle.gov/resource/i5jq-ms7b.json?
+
+SELECT permit_number,address,description
+https://data.seattle.gov/resource/i5jq-ms7b.json?$query=SELECT application_permit_number AS id,category,description,address,value,longitude,latitude WHERE action_type = 'NEW' AND value > '100000'
+
