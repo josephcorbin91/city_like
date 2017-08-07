@@ -4,18 +4,13 @@ var databaseSchema = mongoose.Schema;
 
 
 var seattleDataSchema = new databaseSchema({
-   permit_number: Number,
-   permit_type: String,  
-   address: String,
-   description: String,
+   id: Number,
    category: String,
-   action_type: String,
-   work_type: String,
+   description: String,
+   address: String,
    value: Number,
    longitude: Number,
    latitude: Number,
-   url: String,
-   current_status: String,
    
    
  

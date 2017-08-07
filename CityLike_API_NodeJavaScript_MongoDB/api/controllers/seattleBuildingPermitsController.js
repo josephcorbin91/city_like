@@ -11,13 +11,25 @@ var mongoose = require('mongoose'),
     };
     
     exports.create_permit = function(req, res){
-        var new_permit = new SeattleBuildingPermit(req.body);
-    new_permit.save(function(err, seattleBuildingPermit){
-        if(err)
-            res.send(err);
-        res.json(seattleBuildingPermit);
-    });
-    };
+        
+        if(req.body.batch){
+            SeattleBuildingPermit.create(req.body.batch,function(err){
+                if(err)
+                    res.send(err);
+                else
+                    res.json(req.body);
+            });
+        }
+        else{
+            var new_permit = new SeattleBuildingPermit(req.body);
+            new_permit.save(function(err, seattleBuildingPermit){
+                if(err)
+                    res.send(err);
+                else
+                    res.json(seattleBuildingPermit);
+            });
+        }
+        };
     
     exports.read_permit = function(req,res){
         SeattleBuildingPermit.findById(req.params.permitId, function(err,seattleBuildingPermit){
@@ -45,4 +57,12 @@ var mongoose = require('mongoose'),
             res.json({ message: 'Building Permit deleted'});
         });
     };
-  
+    
+    exports.delete_all_permits = function(req, res){
+        SeattleBuildingPermit.remove({},function(err){
+            if(err)
+                res.send(err);
+            res.json({message: 'Building Permits Deleted'});
+        });
+    };
+   

@@ -4,6 +4,7 @@ module.exports = function(app){
 
     app.route('/buildingPermits')
         .get(seattleBuildingPermits.list_permits)
+        .delete(seattleBuildingPermits.delete_all_permits)
         .post(seattleBuildingPermits.create_permit);
     
     
@@ -11,7 +12,8 @@ module.exports = function(app){
     app.route('buildingPermits/:permitId')
         .get(seattleBuildingPermits.read_permit)
         .put(seattleBuildingPermits.update_permit)
-        .delete(seattleBuildingPermits.delete_permit);
+        .delete(seattleBuildingPermits.delete_permit)
+
         
         };
         
