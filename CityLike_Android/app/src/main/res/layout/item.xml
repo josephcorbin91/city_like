@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="600dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="64dp"
+    android:layout_marginBottom="48dp"
+    android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
 
 
 
         <ImageView
+            android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
@@ -35,32 +40,11 @@
 
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/login_activity_button_sign_in"
-        android:background="#00000000"
-        android:text="@string/login_activity_button_sign_in"
-        android:layout_centerHorizontal="true"
-
-        android:layout_marginTop="400dp"
-        android:textColor="#FFFFFF"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/login_activity_terms_of_service"
-        android:background="#00000000"
-        android:layout_centerHorizontal="true"
-
-        android:layout_marginTop="500dp"
-        android:text="@string/login_activity_terms_of_service"
-        android:textColor="#FFFFFF"/>
 
 
 
 
-</RelativeLayout>
+</LinearLayout>
 
 <!--
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

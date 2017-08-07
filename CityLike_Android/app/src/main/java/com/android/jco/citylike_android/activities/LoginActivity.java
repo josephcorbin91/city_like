@@ -46,6 +46,28 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 login_activity_video.start();
+
+                Thread welcomeThread = new Thread() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            super.run();
+
+
+                            sleep(5000);
+                        } catch (Exception e) {
+
+                        } finally {
+
+                            Intent startLoginActivity = new Intent(LoginActivity.this, SwipingActivity.class);
+                            startActivity(startLoginActivity);
+                            finish();
+                        }
+                    }
+                };
+
+                welcomeThread.start();
             }
         });
 

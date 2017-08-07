@@ -3,9 +3,11 @@ package com.android.jco.citylike_android.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.jco.citylike_android.R;
+import com.android.jco.citylike_android.models.TestModel;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -18,20 +20,19 @@ public class SwipingActivity extends AppCompatActivity {
 
     @BindView(R.id.frame) SwipeFlingAdapterView flingContainer;
 
-    ArrayList<String> list;
+    ArrayList<TestModel> list;
     private ArrayAdapter<String> mAdapter;
        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-           list = new ArrayList<String>();
+           list = new ArrayList<TestModel>();
            setContentView(R.layout.activity_swiping);
            SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
-           list.add("PHP");
-           list.add("STUFF");
-           list.add("STUFF1");
-           list.add("STUFF2");
-           list.add("STUFF3");
+           final ImageView currentImageView = (ImageView)findViewById(R.id.swiping_activity_image);
+           list.add(new TestModel(,"PHP"));
+           list.add(new TestModel(,"STUFF"));
+
            mAdapter = new ArrayAdapter<String>(this, R.layout.item, R.id.helloText, list );
 
            flingContainer.setAdapter(mAdapter);
@@ -44,27 +45,27 @@ public class SwipingActivity extends AppCompatActivity {
 
                @Override
                public void onLeftCardExit(Object o) {
-
-                   Toast.makeText(SwipingActivity.this, "Left", Toast.LENGTH_SHORT).show();
+                   list.remove(0);
+                   mAdapter.notifyDataSetChanged();
                }
 
                @Override
                public void onRightCardExit(Object o) {
+                   list.remove(0);
+                   mAdapter.notifyDataSetChanged();     }
 
-                   Toast.makeText(SwipingActivity.this, "Right!", Toast.LENGTH_SHORT).show();
-               }
 
 
 
                @Override
                public void onAdapterAboutToEmpty(int i) {
 
-                   list.add("XML");
                    mAdapter.notifyDataSetChanged();
                }
 
                @Override
                public void onScroll(float v) {
+
 
                }
            });
