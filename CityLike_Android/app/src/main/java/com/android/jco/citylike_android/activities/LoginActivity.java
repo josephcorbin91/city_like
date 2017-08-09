@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         login_activity_video = (VideoView) findViewById(R.id.login_activity_video);
         try{
             login_activity_video.setMediaController(mediaControls);
-            login_activity_video.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.seattle_skyline_video));
+           // login_activity_video.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.seattle_skyline_video));
 
 
         }
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                             super.run();
 
 
-                            sleep(5000);
+                            sleep(4000);
                         } catch (Exception e) {
 
                         } finally {
