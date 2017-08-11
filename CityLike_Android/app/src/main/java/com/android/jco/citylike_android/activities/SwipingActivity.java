@@ -1,23 +1,31 @@
 package com.android.jco.citylike_android.activities;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.android.jco.citylike_android.R;
 import com.android.jco.citylike_android.models.Data;
+import com.balysv.materialmenu.MaterialMenuDrawable;
+import com.balysv.materialmenu.MaterialMenuView;
 import com.bumptech.glide.Glide;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SwipingActivity extends AppCompatActivity {
 
@@ -26,11 +34,18 @@ public class SwipingActivity extends AppCompatActivity {
     private ArrayList<Data> array;
     private SwipeFlingAdapterView flingContainer;
 
+    private Toolbar          toolbar;
+    private MaterialMenuView materialMenuView;
+    private int              materialButtonState;
+    private DrawerLayout drawerLayout;
+    private boolean          direction;
+    private int              actionBarMenuState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        initiateToolBar();
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         array = new ArrayList<>();
@@ -102,6 +117,55 @@ public class SwipingActivity extends AppCompatActivity {
         });
     }
 
+
+    public void initiateToolBar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        MaterialMenuDrawable materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
+        toolbar.setNavigationIcon(materialMenu);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                // random state
+                actionBarMenuState = generateState(actionBarMenuState);
+                //getMaterialMenu(toolbar).animateIconState(intToState(actionBarMenuState));
+            }
+        });
+
+        //materialMenuView = (MaterialMenuView) findViewById(R.id.material_menu_button);
+        //materialMenuView.setOnClickListener(this);
+
+        drawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
+        drawerLayout.setScrimColor(Color.parseColor("#66000000"));
+        drawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                getMaterialMenu(toolbar).setTransformationOffset(
+                        MaterialMenuDrawable.AnimationState.BURGER_ARROW,
+                        direction ? 2 - slideOffset : slideOffset
+                );
+            }
+
+            @Override
+            public void onDrawerOpened(android.view.View drawerView) {
+                direction = true;
+            }
+
+            @Override
+            public void onDrawerClosed(android.view.View drawerView) {
+                direction = false;
+            }
+        });
+
+
+        drawerLayout.postDelayed(new Runnable() {
+            @Override public void run() {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        }, 1500);
+       }
+
     public static class ViewHolder {
         public static FrameLayout background;
         public TextView DataText;
@@ -163,4 +227,18 @@ public class SwipingActivity extends AppCompatActivity {
             return rowView;
         }
     }
+
+    private void refreshDrawerState() {
+        this.direction = drawerLayout.isDrawerOpen(GravityCompat.START);
+    }
+
+      private static MaterialMenuDrawable getMaterialMenu(Toolbar toolbar) {
+        return (MaterialMenuDrawable) toolbar.getNavigationIcon();
+}
+
+    private static int generateState(int previous) {
+        int generated = new Random().nextInt(4);
+        return generated != previous ? generated : generateState(previous);
+    }
+
 }
