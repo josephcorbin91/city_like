@@ -10,14 +10,34 @@ var mongoose = require('mongoose'),
         });
     };
     
-    exports.create_permit = function(req, res){
+    
+    
+    exports.create_multiple_permits = function(req, res){
+        console.log(req.body.seattleBuildingPermits);
+        SeattleBuildingPermit.insertMany(req.body.seattleBuildingPermits, function(err, seattleBuildingPermit){
+        if(err) console.log(err);
+        else {
+             res.json(seattleBuildingPermit);  
+
+            console.log("restaurants Added Successfully");
+        }
+        });
+    };
+        
+    
+   exports.create_permit = function(req, res){
         
         if(req.body.batch){
-            SeattleBuildingPermit.create(req.body.batch,function(err){
+            SeattleBuildingPermit.create(req.body.batch,function(err,seattleBuildingPermits){
                 if(err)
                     res.send(err);
-                else
-                    res.json(req.body);
+                    
+                else{
+                   console.log("Multiple created");
+                   console.log(req.body.batch);
+                   res.json(req.body.batch);
+
+                }
             });
         }
         else{
@@ -65,4 +85,3 @@ var mongoose = require('mongoose'),
             res.json({message: 'Building Permits Deleted'});
         });
     };
-   

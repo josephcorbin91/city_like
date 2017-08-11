@@ -4,13 +4,13 @@ var databaseSchema = mongoose.Schema;
 
 
 var seattleDataSchema = new databaseSchema({
-   id: Number,
-   category: String,
-   description: String,
-   address: String,
-   value: Number,
-   longitude: Number,
-   latitude: Number,
+   id: {type: String, default: 'N/A'},
+   category: {type: String, default: 'N/A'},
+   description: {type: String, default: 'N/A'},
+   address: {type: String, default: 'N/A'},
+   value: {type: Number, default: '0'},
+   longitude: {type: Number, default: '0'},
+   latitude: {type: Number, default: '0'}
    
    
  

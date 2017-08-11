@@ -7,6 +7,8 @@ module.exports = function(app){
         .delete(seattleBuildingPermits.delete_all_permits)
         .post(seattleBuildingPermits.create_permit);
     
+    app.route('/createBuildingPermits')
+        .post(seattleBuildingPermits.create_multiple_permits);
     
     
     app.route('buildingPermits/:permitId')
