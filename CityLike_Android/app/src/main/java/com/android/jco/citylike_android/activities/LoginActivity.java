@@ -60,14 +60,15 @@ public class LoginActivity extends AppCompatActivity {
                             super.run();
 
 
-                            sleep(4000);
+                            sleep(10000);
                         } catch (Exception e) {
 
                         } finally {
 
-                            Intent startLoginActivity = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent startLoginActivity = new Intent(LoginActivity.this, SwipingActivity.class);
                             startActivity(startLoginActivity);
-                            finish();
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
                         }
                     }
                 };
@@ -82,8 +83,10 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_activity_button_sign_in)
     public void transitionToSwipingActivity(){
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this,SwipingActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
     }
 
 }

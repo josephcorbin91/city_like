@@ -2,9 +2,10 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
+              android:background="#232123"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context=".MainActivity">
+              tools:context=".activities.SwipingActivity">
 
 
     <!-- activity view -->
@@ -12,14 +13,14 @@
         android:layout_width="match_parent"
 
         android:layout_height="match_parent"
-        android:background="@drawable/background">
+        android:background="#232123">
 
 
         <com.lorentzos.flingswipe.SwipeFlingAdapterView
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background"
+            android:background="#232123"
             app:rotation_degrees="15.5" />
 
     </FrameLayout>
