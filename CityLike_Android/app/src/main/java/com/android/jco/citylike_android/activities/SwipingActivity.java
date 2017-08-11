@@ -122,18 +122,16 @@ public class SwipingActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        MaterialMenuDrawable materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
+        final MaterialMenuDrawable materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
         toolbar.setNavigationIcon(materialMenu);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                // random state
-                actionBarMenuState = generateState(actionBarMenuState);
+
+               // actionBarMenuState = generateState(actionBarMenuState);
                 //getMaterialMenu(toolbar).animateIconState(intToState(actionBarMenuState));
             }
         });
 
-        //materialMenuView = (MaterialMenuView) findViewById(R.id.material_menu_button);
-        //materialMenuView.setOnClickListener(this);
 
         drawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
         drawerLayout.setScrimColor(Color.parseColor("#66000000"));
@@ -159,11 +157,7 @@ public class SwipingActivity extends AppCompatActivity {
         });
 
 
-        drawerLayout.postDelayed(new Runnable() {
-            @Override public void run() {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        }, 1500);
+
        }
 
     public static class ViewHolder {
