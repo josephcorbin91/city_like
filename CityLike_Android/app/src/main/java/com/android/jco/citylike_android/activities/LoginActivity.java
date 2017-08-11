@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         } finally {
 
-                            Intent startLoginActivity = new Intent(LoginActivity.this, SwipingActivity.class);
+                            Intent startLoginActivity = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(startLoginActivity);
                             finish();
                         }
@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_activity_button_sign_in)
     public void transitionToSwipingActivity(){
-        Intent intent = new Intent(this,SwipingActivity.class);
+        Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
 
