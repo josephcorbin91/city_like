@@ -2,6 +2,7 @@ package com.android.jco.citylike_android.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -36,6 +37,7 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
@@ -135,6 +137,7 @@ public class SwipingActivity extends AppCompatActivity {
                 myAppAdapter.notifyDataSetChanged();
             }
         });
+
     }
 
 
@@ -184,6 +187,7 @@ public class SwipingActivity extends AppCompatActivity {
         public static FrameLayout background;
         public TextView DataText;
         public ImageView cardImage;
+        public FloatingActionButton swipe_card_map_button;
 
 
     }
@@ -229,16 +233,13 @@ public class SwipingActivity extends AppCompatActivity {
                 viewHolder.DataText = (TextView) rowView.findViewById(R.id.bookText);
                 viewHolder.background = (FrameLayout) rowView.findViewById(R.id.background);
                 viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.cardImage);
-                swipe_card_map_button = (FloatingActionButton) rowView.findViewById(R.id.swipe_card_map_button);
-
-                swipe_card_map_button.setOnClickListener(new View.OnClickListener() {
+                viewHolder.swipe_card_map_button = (FloatingActionButton) rowView.findViewById(R.id.swipe_card_map_button);
+                viewHolder.swipe_card_map_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        getLocation();
-
-                    }
+                        checkLocationPermission();                    }
                 });
+
                 rowView.setTag(viewHolder);
 
             } else {
@@ -253,7 +254,7 @@ public class SwipingActivity extends AppCompatActivity {
     }
 
 
-    public void getLocation() {
+    public void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -279,6 +280,24 @@ public class SwipingActivity extends AppCompatActivity {
                 // result of the request.
             }
         }
+        getLocation();
+    }
+
+    public void getLocation(){
+
+        mFusedLocationClient.getLastLocation().
+
+                addOnSuccessListener(this,new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess (Location location){
+                        if (location != null) {
+                            Intent intent = new Intent(SwipingActivity.this, MapsMarkerActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(SwipingActivity.this, String.valueOf(location.getLatitude()), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
     }
 
     @Override
@@ -294,17 +313,7 @@ public class SwipingActivity extends AppCompatActivity {
                     // contacts-related task you need to do.
 
 
-                    mFusedLocationClient.getLastLocation().
-
-                            addOnSuccessListener(this,new OnSuccessListener<Location>() {
-                                @Override
-                                public void onSuccess (Location location){
-                                    if (location != null)
-                                        Toast.makeText(SwipingActivity.this, String.valueOf(location.getLatitude()), Toast.LENGTH_SHORT).show();
-
-                                }
-                            });
-
+                    getLocation();
                 } else {
 
                     // permission denied, boo! Disable the
