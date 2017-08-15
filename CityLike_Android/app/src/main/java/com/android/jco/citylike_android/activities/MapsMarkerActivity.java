@@ -1,5 +1,6 @@
 package com.android.jco.citylike_android.activities;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -8,6 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -17,6 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
+    private Location currentLocation,buildingPermitLocation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,10 @@ public class MapsMarkerActivity extends AppCompatActivity
         setContentView(R.layout.activity_specific_building_map);
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
+        currentLocation = (Location) getIntent().getExtras().getParcelable("CurrentLocation");
+        buildingPermitLocation = (Location) getIntent().getExtras().getParcelable("buildingPermitLocation");
+
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -42,9 +49,20 @@ public class MapsMarkerActivity extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         // Add a marker in Sydney, Australia,
         // and move the map's camera to the same location.
-        LatLng sydney = new LatLng(-33.852, 151.211);
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng currentLatLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+
+        LatLng buildingPermitLatLng = new LatLng(buildingPermitLocation.getLatitude(),buildingPermitLocation.getLongitude());
+        googleMap.setBuildingsEnabled(true);
+        googleMap.addMarker(new MarkerOptions().position(currentLatLng)
+                .title("Your location"));
+        googleMap.addMarker(new MarkerOptions().position(buildingPermitLatLng)
+                .title("Building location"));
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(buildingPermitLatLng).zoom(16).bearing(90).tilt(30).build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(16f));
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng));
     }
 }

@@ -292,7 +292,15 @@ public class SwipingActivity extends AppCompatActivity {
                     public void onSuccess (Location location){
                         if (location != null) {
                             Intent intent = new Intent(SwipingActivity.this, MapsMarkerActivity.class);
+                            intent.putExtra("CurrentLocation",location);
+                            location.setLatitude(location.getLatitude()+0.00001f);
+                            location.setLongitude(location.getLongitude()+0.00001f);
+
+                            intent.putExtra("buildingPermitLocation",location);
+
+
                             startActivity(intent);
+
                             Toast.makeText(SwipingActivity.this, String.valueOf(location.getLatitude()), Toast.LENGTH_SHORT).show();
                         }
                     }
