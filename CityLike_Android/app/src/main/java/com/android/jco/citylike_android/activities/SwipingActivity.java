@@ -1,8 +1,13 @@
 package com.android.jco.citylike_android.activities;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v13.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -16,32 +21,41 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.jco.citylike_android.R;
 import com.android.jco.citylike_android.models.Data;
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.MaterialMenuView;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.location.FusedLocationProviderApi;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 public class SwipingActivity extends AppCompatActivity {
+
+    public static final int PERMISSION_REQUEST_TO_ACCESS_LOCATION = 32;
 
     public static MyAppAdapter myAppAdapter;
     public static ViewHolder viewHolder;
     private ArrayList<Data> array;
     private SwipeFlingAdapterView flingContainer;
+    private FusedLocationProviderClient mFusedLocationClient;
 
-    private Toolbar          toolbar;
+    private Toolbar toolbar;
     private MaterialMenuView materialMenuView;
-    private int              materialButtonState;
+    private int materialButtonState;
     private DrawerLayout drawerLayout;
-    private boolean          direction;
-    private int              actionBarMenuState;
-    private  FloatingActionButton swipe_card_map_button;
+    private boolean direction;
+    private int actionBarMenuState;
+    private FloatingActionButton swipe_card_map_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +63,9 @@ public class SwipingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initiateToolBar();
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
 
         array = new ArrayList<>();
         array.add(new Data("https://www10.aeccafe.com/blogs/arch-showcase/files/2012/05/LAUS_UNStudio_Aerial.jpg", "Hi I am Katrina Kaif. Wanna chat with me ?. \n" +
@@ -121,16 +138,17 @@ public class SwipingActivity extends AppCompatActivity {
     }
 
 
-    public void initiateToolBar(){
+    public void initiateToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         final MaterialMenuDrawable materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
         toolbar.setNavigationIcon(materialMenu);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-               // actionBarMenuState = generateState(actionBarMenuState);
+                // actionBarMenuState = generateState(actionBarMenuState);
                 //getMaterialMenu(toolbar).animateIconState(intToState(actionBarMenuState));
             }
         });
@@ -160,8 +178,7 @@ public class SwipingActivity extends AppCompatActivity {
         });
 
 
-
-       }
+    }
 
     public static class ViewHolder {
         public static FrameLayout background;
@@ -212,11 +229,13 @@ public class SwipingActivity extends AppCompatActivity {
                 viewHolder.DataText = (TextView) rowView.findViewById(R.id.bookText);
                 viewHolder.background = (FrameLayout) rowView.findViewById(R.id.background);
                 viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.cardImage);
-                swipe_card_map_button = (FloatingActionButton)rowView.findViewById(R.id.swipe_card_map_button);
+                swipe_card_map_button = (FloatingActionButton) rowView.findViewById(R.id.swipe_card_map_button);
 
                 swipe_card_map_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        getLocation();
 
                     }
                 });
@@ -232,6 +251,75 @@ public class SwipingActivity extends AppCompatActivity {
             return rowView;
         }
     }
+
+
+    public void getLocation() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSION_REQUEST_TO_ACCESS_LOCATION);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_TO_ACCESS_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+
+                    mFusedLocationClient.getLastLocation().
+
+                            addOnSuccessListener(this,new OnSuccessListener<Location>() {
+                                @Override
+                                public void onSuccess (Location location){
+                                    if (location != null)
+                                        Toast.makeText(SwipingActivity.this, String.valueOf(location.getLatitude()), Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+
+
 
     private void refreshDrawerState() {
         this.direction = drawerLayout.isDrawerOpen(GravityCompat.START);
