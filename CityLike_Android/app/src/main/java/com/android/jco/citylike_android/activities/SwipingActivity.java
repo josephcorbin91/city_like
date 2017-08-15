@@ -2,6 +2,7 @@ package com.android.jco.citylike_android.activities;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,7 @@ public class SwipingActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private boolean          direction;
     private int              actionBarMenuState;
+    private  FloatingActionButton swipe_card_map_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class SwipingActivity extends AppCompatActivity {
 
         myAppAdapter = new MyAppAdapter(array, SwipingActivity.this);
         flingContainer.setAdapter(myAppAdapter);
+
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
@@ -209,6 +212,14 @@ public class SwipingActivity extends AppCompatActivity {
                 viewHolder.DataText = (TextView) rowView.findViewById(R.id.bookText);
                 viewHolder.background = (FrameLayout) rowView.findViewById(R.id.background);
                 viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.cardImage);
+                swipe_card_map_button = (FloatingActionButton)rowView.findViewById(R.id.swipe_card_map_button);
+
+                swipe_card_map_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
                 rowView.setTag(viewHolder);
 
             } else {
