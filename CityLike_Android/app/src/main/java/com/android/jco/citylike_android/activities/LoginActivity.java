@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         } finally {
 
-                            Intent startLoginActivity = new Intent(LoginActivity.this, SwipingActivity.class);
+                            Intent startLoginActivity = new Intent(LoginActivity.this, GeoFencingActivity.class);
                             startActivity(startLoginActivity);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
