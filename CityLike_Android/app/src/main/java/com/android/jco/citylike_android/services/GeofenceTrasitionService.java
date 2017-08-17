@@ -8,6 +8,7 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.google.android.gms.location.GeofencingEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class GeofenceTrasitionService extends IntentService {
@@ -28,6 +30,7 @@ public class GeofenceTrasitionService extends IntentService {
 
     public static final int GEOFENCE_NOTIFICATION_ID = 0;
 
+    private TextToSpeech textToSpeech;
     public GeofenceTrasitionService() {
         super(TAG);
     }
@@ -72,7 +75,7 @@ public class GeofenceTrasitionService extends IntentService {
         return status + TextUtils.join( ", ", triggeringGeofencesList);
     }
 
-    private void sendNotification( String msg ) {
+    private void sendNotification(final String msg ) {
         Log.i(TAG, "sendNotification: " + msg );
 
         // Intent to start the main Activity
@@ -80,10 +83,21 @@ public class GeofenceTrasitionService extends IntentService {
                 getApplicationContext(), msg
         );
 
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR){
+                    textToSpeech.setLanguage(Locale.CANADA);
+
+                    textToSpeech.speak(msg,TextToSpeech.QUEUE_FLUSH,null);
+                }
+            }
+        });
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(GeoFencingActivity.class);
         stackBuilder.addNextIntent(notificationIntent);
         PendingIntent notificationPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
 
         // Creating and sending Notification

@@ -309,7 +309,7 @@ public class GeoFencingActivity extends AppCompatActivity
         // Define marker options
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
                 .title(title);
         if ( map!=null ) {
             // Remove last geoFenceMarker
