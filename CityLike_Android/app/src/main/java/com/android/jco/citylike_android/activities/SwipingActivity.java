@@ -233,6 +233,13 @@ public class SwipingActivity extends AppCompatActivity {
                 viewHolder.DataText = (TextView) rowView.findViewById(R.id.bookText);
                 viewHolder.background = (FrameLayout) rowView.findViewById(R.id.background);
                 viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.cardImage);
+                viewHolder.cardImage.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        viewDetail();
+                        return true;
+                    }
+                });
                 viewHolder.swipe_card_map_button = (FloatingActionButton) rowView.findViewById(R.id.swipe_card_map_button);
                 viewHolder.swipe_card_map_button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -253,6 +260,11 @@ public class SwipingActivity extends AppCompatActivity {
         }
     }
 
+    public void viewDetail(){
+        Intent intent = new Intent(this, DetailActivity.class);
+
+        startActivity(intent);
+    }
 
     public void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
