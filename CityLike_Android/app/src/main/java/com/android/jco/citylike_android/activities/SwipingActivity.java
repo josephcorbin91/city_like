@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v13.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.android.jco.citylike_android.R;
 import com.android.jco.citylike_android.api.CityLikeApiService;
 import com.android.jco.citylike_android.models.Data;
+import com.android.jco.citylike_android.services.ApiIntentService;
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.MaterialMenuView;
 import com.bumptech.glide.Glide;
@@ -51,6 +53,7 @@ public class SwipingActivity extends AppCompatActivity {
     private ArrayList<Data> array;
     private SwipeFlingAdapterView flingContainer;
     private FusedLocationProviderClient mFusedLocationClient;
+    private ApiIntentService apiIntentService;
 
     private Toolbar toolbar;
     private MaterialMenuView materialMenuView;
@@ -67,10 +70,13 @@ public class SwipingActivity extends AppCompatActivity {
 
 
         try {
-            CityLikeApiService apiService = new CityLikeApiService();
-            apiService.getSeattleBuilingPermit(getApplicationContext(), 6279866);
+
+            startService(new Intent(this, ApiIntentService.class));
+
+
         }
         catch (Exception ex){
+            ex.printStackTrace();
 
         }
         initiateToolBar();

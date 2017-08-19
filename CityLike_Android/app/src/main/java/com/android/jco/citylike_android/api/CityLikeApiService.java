@@ -34,18 +34,16 @@ import retrofit2.http.Query;
 
 public class CityLikeApiService {
 
-    public static final String BASE_URL = "192.168.0.33";
+    public static final String BASE_URL = "http://192.168.0.33";
     CityLikeApiEndpointInterface apiService;
 
     private Context mContext = null;
 
     public CityLikeApiService() {
 
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .create();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).build();
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
 
         apiService = retrofit.create(CityLikeApiEndpointInterface.class);
 
@@ -60,15 +58,13 @@ public interface CityLikeApiEndpointInterface {
         @GET("buildingPermits/{permit_number}")
         Call<SeattleBuildingPermit> getSeattleBuilingPermit(@Path("permit_number") Integer permit_number);
 
-    /*
-        @GET("buildingPermits")
-        Call<SeattleBuildingPermit> getAllSeattleBuildingPermits();
-    */
+
     }
 
     public void getSeattleBuilingPermit(Context context, Integer permit_number) throws Exception {
-        Call<SeattleBuildingPermit> call = apiService.getSeattleBuilingPermit(6279866);
+        Call<SeattleBuildingPermit> call = apiService.getSeattleBuilingPermit(permit_number);
 
+        System.out.println("Permit number" + permit_number);
         Response<SeattleBuildingPermit> response = call.execute();
         Integer statusCode = response.code();
         if (statusCode == HttpURLConnection.HTTP_OK || statusCode == HttpURLConnection.HTTP_CREATED) {
