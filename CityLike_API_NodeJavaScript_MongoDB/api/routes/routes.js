@@ -11,8 +11,8 @@ module.exports = function(app){
         .post(seattleBuildingPermits.create_multiple_permits);
     
     
-    app.route('buildingPermits/:permitId')
-        .get(seattleBuildingPermits.read_permit)
+    app.route('/buildingPermits/:permitId')
+        .get(seattleBuildingPermits.read_permit_by_permit_number)
         .put(seattleBuildingPermits.update_permit)
         .delete(seattleBuildingPermits.delete_permit)
 

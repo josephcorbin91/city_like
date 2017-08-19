@@ -4,9 +4,10 @@ var databaseSchema = mongoose.Schema;
 
 
 var seattleDataSchema = new databaseSchema({
-   id: {type: String, default: 'N/A'},
+   permit_number: {type: Number, default: '0'},
    category: {type: String, default: 'N/A'},
    description: {type: String, default: 'N/A'},
+   date: {type: String, default: "N/A"},
    address: {type: String, default: 'N/A'},
    value: {type: Number, default: '0'},
    longitude: {type: Number, default: '0'},

@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.jco.citylike_android.R;
+import com.android.jco.citylike_android.api.CityLikeApiService;
 import com.android.jco.citylike_android.models.Data;
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.MaterialMenuView;
@@ -63,6 +64,15 @@ public class SwipingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        try {
+            CityLikeApiService apiService = new CityLikeApiService();
+            apiService.getSeattleBuilingPermit(getApplicationContext(), 6279866);
+        }
+        catch (Exception ex){
+
+        }
         initiateToolBar();
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 

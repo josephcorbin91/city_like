@@ -4,6 +4,7 @@ package com.android.jco.citylike_android.api;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.android.jco.citylike_android.models.SeattleBuildingPermit;
@@ -28,12 +29,12 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class CityLikeApiService {
 
-    public static final String BASE_URL = "http://citylike.herokuapp.com/";
-    public static final String ENV_SERVEUR = "citylike-production";
+    public static final String BASE_URL = "192.168.0.33";
     CityLikeApiEndpointInterface apiService;
 
     private Context mContext = null;
@@ -44,33 +45,34 @@ public class CityLikeApiService {
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).build();
 
-        apiService =
-                retrofit.create(CityLikeApiEndpointInterface.class);
+        apiService = retrofit.create(CityLikeApiEndpointInterface.class);
 
-    }
+}
 
 
 
-    public interface CityLikeApiEndpointInterface {
+public interface CityLikeApiEndpointInterface {
 
         /*TODO add authentication token */
         //SkyscraperCityPosts
-        @GET("seattleBuildingPermit/posts")
-        Call<SeattleBuildingPermit> getSeattleBuilingPermits();
+        @GET("buildingPermits/{permit_number}")
+        Call<SeattleBuildingPermit> getSeattleBuilingPermit(@Path("permit_number") Integer permit_number);
+
+    /*
+        @GET("buildingPermits")
+        Call<SeattleBuildingPermit> getAllSeattleBuildingPermits();
+    */
     }
 
-    public void getSeattleBuilingPermits(Context context) throws Exception {
-        mContext = context;
-        Call<SeattleBuildingPermit> call = apiService.getSeattleBuilingPermits();
+    public void getSeattleBuilingPermit(Context context, Integer permit_number) throws Exception {
+        Call<SeattleBuildingPermit> call = apiService.getSeattleBuilingPermit(6279866);
 
         Response<SeattleBuildingPermit> response = call.execute();
         Integer statusCode = response.code();
         if (statusCode == HttpURLConnection.HTTP_OK || statusCode == HttpURLConnection.HTTP_CREATED) {
+            Toast.makeText(context, response.body().getPermitNumber(), Toast.LENGTH_SHORT).show();
         } else {
             throw new RuntimeException("ERROR createKey: " + response.errorBody().string() + " : " + statusCode.toString());
         }

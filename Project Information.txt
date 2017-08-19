@@ -1,9 +1,25 @@
 USEFUL INFORMATION 
 
+
+Starting the  server
+C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe --dbpath C:\Program Files\MongoDB\Server\3.4\data\db
+npm install --save-dev nodemon
+npm install express --save
+npm run start
+npm install mongoose --save
+
+Sending a json response with postman
+Make sure that the header includes Content-type: application/json
+
+For api check localhost/
+IPv address : 192.168.0.33
+
+
+
 data.seattle json query for mongoose database
 BASE QUERY
 https://data.seattle.gov/resource/i5jq-ms7b.json?
 
 SELECT permit_number,address,description
-https://data.seattle.gov/resource/i5jq-ms7b.json?$query=SELECT application_permit_number AS id,category,description,address,value,longitude,latitude WHERE action_type = 'NEW' AND value > '100000'
+https://data.seattle.gov/resource/i5jq-ms7b.json?$query=SELECT application_permit_number AS permit_number,category,application_date AS date,description,address,value,longitude,latitude WHERE action_type = 'NEW' AND value > '100000' ORDER BY application_date DESC 
 

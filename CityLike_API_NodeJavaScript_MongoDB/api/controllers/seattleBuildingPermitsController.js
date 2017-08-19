@@ -59,6 +59,14 @@ var mongoose = require('mongoose'),
         });
     };
     
+     exports.read_permit_by_permit_number = function(req,res){
+        SeattleBuildingPermit.find({ 'permit_number': req.params.permitId}, function(err,seattleBuildingPermit){
+            if(err)
+                res.send(err);
+            res.json(seattleBuildingPermit);
+        });
+    };
+    
     
     exports.update_permit = function(req,res){
         SeattleBuildingPermit.findOneAndUpdate({_id: req.params.permitId}, req.body, {new: true}, function(err, seattleBuildingPermit){

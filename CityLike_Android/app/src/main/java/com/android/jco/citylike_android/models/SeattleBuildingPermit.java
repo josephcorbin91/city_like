@@ -15,50 +15,42 @@ import org.litepal.crud.DataSupport;
 public class SeattleBuildingPermit extends DataSupport implements Serializable {
 
 
-    @Column(nullable = false)
+    @Column
     private Integer permitNumber;
 
-    @Column(nullable = false)
-    private String permitType;
-
-    @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
-    private String description;
-    @Column(nullable = true)
+    @Column
     private String category;
 
-    @Column(nullable = false)
-    private String actionType;
+    @Column
+    private String description;
 
-    @Column(nullable = false)
-    private String workType;
+    @Column
+    private String date;
 
-    @Column(nullable = true)
-    private String applicationDate;
+    @Column
+    private String address;
 
-    @Column(nullable = false)
-    private String url;
-
-    @Column(nullable = false)
-    private Integer latitude;
-
-    @Column(nullable = false)
-    private Integer longitude;
+    @Column
+    private Integer value;
 
 
-    public SeattleBuildingPermit(Integer permitNumber,String permitType, String address, String actionType, String workType, String applicationDate, String url, Integer latitude,Integer longitude){
+
+    @Column
+    private Double latitude;
+
+    @Column
+    private Double longitude;
+
+    public SeattleBuildingPermit(Integer permitNumber, String category, String description, String date, String address, Integer value, Double latitude, Double longitude) {
         this.permitNumber = permitNumber;
-        this.permitType = permitType;
-        this.address =address;
-        this.actionType=actionType;
-        this.applicationDate=applicationDate;
-        this.url=url;
-        this.latitude=latitude;
-        this.longitude=longitude;
-
-        }
+        this.category = category;
+        this.description = description;
+        this.date = date;
+        this.address = address;
+        this.value = value;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public Integer getPermitNumber() {
         return permitNumber;
@@ -66,30 +58,6 @@ public class SeattleBuildingPermit extends DataSupport implements Serializable {
 
     public void setPermitNumber(Integer permitNumber) {
         this.permitNumber = permitNumber;
-    }
-
-    public String getPermitType() {
-        return permitType;
-    }
-
-    public void setPermitType(String permitType) {
-        this.permitType = permitType;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getCategory() {
@@ -100,51 +68,51 @@ public class SeattleBuildingPermit extends DataSupport implements Serializable {
         this.category = category;
     }
 
-    public String getActionType() {
-        return actionType;
+    public String getDescription() {
+        return description;
     }
 
-    public void setActionType(String actionType) {
-        this.actionType = actionType;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getWorkType() {
-        return workType;
+    public String getDate() {
+        return date;
     }
 
-    public void setWorkType(String workType) {
-        this.workType = workType;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getApplicationDate() {
-        return applicationDate;
+    public String getAddress() {
+        return address;
     }
 
-    public void setApplicationDate(String applicationDate) {
-        this.applicationDate = applicationDate;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getUrl() {
-        return url;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setValue(Integer value) {
+        this.value = value;
     }
 
-    public Integer getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Integer latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public Integer getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Integer longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 }
