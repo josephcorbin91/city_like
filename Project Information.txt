@@ -1,5 +1,12 @@
 USEFUL INFORMATION 
+Skills Acquired:
+-Facebook Integration, using single Sign-On
 
+Android Keystore
+For C:\Users\jco\.android\debug.keystore
+Password is android
+Certificate given and used for facebook development key hash.
+5Y8G0R+4TzVqdi8NIqcV0HXNduY=
 
 Starting the  server
 C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe --dbpath C:\Program Files\MongoDB\Server\3.4\data\db
