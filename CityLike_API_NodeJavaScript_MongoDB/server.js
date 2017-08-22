@@ -4,6 +4,7 @@ var express = require('express'),
   mongoose = require('mongoose'),
   BuildingPermit = require('./api/models/model'),
   bodyParser = require('body-parser');
+  app.use(express.static(__dirname));
   
   mongoose.Promise = global.Promise;
   global.db = mongoose.connect('mongodb://localhost/seattleBuildingPermit');
