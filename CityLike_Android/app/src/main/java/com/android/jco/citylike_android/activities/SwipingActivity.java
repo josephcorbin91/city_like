@@ -44,6 +44,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class SwipingActivity extends AppCompatActivity {
 
     public static final int PERMISSION_REQUEST_TO_ACCESS_LOCATION = 32;
@@ -61,7 +64,9 @@ public class SwipingActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private boolean direction;
     private int actionBarMenuState;
+    private static Retrofit retrofit=null;
     private FloatingActionButton swipe_card_map_button;
+    public static final String BASE_URL = "https://citylike1.herokuapp.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +75,18 @@ public class SwipingActivity extends AppCompatActivity {
 
 
         try {
+           // retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
 
-            startService(new Intent(this, ApiIntentService.class));
+            System.out.println("IN API SERVICE SWIPING ");
+            CityLikeApiService apiService = new CityLikeApiService();
+            apiService.getSeattleBuilingPermit(getApplicationContext(), 6279866);
+
+          //  startService(new Intent(this, ApiIntentService.class));
 
 
         }
         catch (Exception ex){
+            System.out.println("Exiting start of service.");
             ex.printStackTrace();
 
         }

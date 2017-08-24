@@ -2,6 +2,20 @@ USEFUL INFORMATION
 Skills Acquired:
 -Facebook Integration, using single Sign-On
 
+
+Herok Login Credentials
+username : joseph.corbin91@yahoo.com		
+password : ulc212976
+
+Slack D4D
+Data for Democracy 
+
+DataWorld
+e-mail : joseph.corbin91@yahoo.com
+username: joseph-corbin91
+Full Name : Joseph Corbin
+Password : ulc212976
+
 Android Keystore
 For C:\Users\jco\.android\debug.keystore
 Password is android

@@ -23,6 +23,7 @@ public class ApiIntentService extends IntentService {
         @Override
         protected void onHandleIntent(Intent workIntent) {
             try {
+                System.out.println("IN API INTENT SERVICE");
                 CityLikeApiService apiService = new CityLikeApiService();
                 apiService.getSeattleBuilingPermit(getApplicationContext(), 6279866);
             }
