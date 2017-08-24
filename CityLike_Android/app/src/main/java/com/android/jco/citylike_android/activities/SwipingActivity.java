@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v13.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,39 +20,38 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.jco.citylike_android.R;
 import com.android.jco.citylike_android.api.CityLikeApiService;
 import com.android.jco.citylike_android.models.Data;
+import com.android.jco.citylike_android.models.SeattleBuildingPermit;
 import com.android.jco.citylike_android.services.ApiIntentService;
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.MaterialMenuView;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
 
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SwipingActivity extends AppCompatActivity {
 
     public static final int PERMISSION_REQUEST_TO_ACCESS_LOCATION = 32;
 
-    public static MyAppAdapter myAppAdapter;
+    public static SeattleBuildingPermitAdapter myAppAdapter;
     public static ViewHolder viewHolder;
-    private ArrayList<Data> array;
+    private ArrayList<SeattleBuildingPermit> array;
     private SwipeFlingAdapterView flingContainer;
     private FusedLocationProviderClient mFusedLocationClient;
     private ApiIntentService apiIntentService;
@@ -72,6 +70,7 @@ public class SwipingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        LitePal.initialize(this);
 
 
         try {
@@ -79,9 +78,8 @@ public class SwipingActivity extends AppCompatActivity {
 
             System.out.println("IN API SERVICE SWIPING ");
             CityLikeApiService apiService = new CityLikeApiService();
-            apiService.getSeattleBuilingPermit(getApplicationContext(), 6279866);
+            apiService.getAllSeattleBuilingPermit(getApplicationContext());
 
-          //  startService(new Intent(this, ApiIntentService.class));
 
 
         }
@@ -97,6 +95,13 @@ public class SwipingActivity extends AppCompatActivity {
 
 
         array = new ArrayList<>();
+
+        List<SeattleBuildingPermit> list = DataSupport.findAll(SeattleBuildingPermit.class);
+
+        for(int i =0 ; i< 15; i++)
+            array.add(list.get(i));
+
+        /*
         array.add(new Data("https://www10.aeccafe.com/blogs/arch-showcase/files/2012/05/LAUS_UNStudio_Aerial.jpg", "Hi I am Katrina Kaif. Wanna chat with me ?. \n" +
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
         array.add(new Data("https://www.theawl.com/2015/06/future-new-york-just-a-bunch-of-boxes-stacked-up-wherever/", "Hi I am Emma Watson. Wanna chat with me ? \n" +
@@ -111,8 +116,8 @@ public class SwipingActivity extends AppCompatActivity {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
         array.add(new Data("http://www.upside-down.ca/cherry-oxford.jpg", "Hi I am Aishwarya Rai. Wanna chat with me ? \n" +
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-
-        myAppAdapter = new MyAppAdapter(array, SwipingActivity.this);
+*/
+        myAppAdapter = new SeattleBuildingPermitAdapter(array, SwipingActivity.this);
         flingContainer.setAdapter(myAppAdapter);
 
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -219,20 +224,20 @@ public class SwipingActivity extends AppCompatActivity {
 
     }
 
-    public class MyAppAdapter extends BaseAdapter {
+    public class SeattleBuildingPermitAdapter extends BaseAdapter {
 
 
-        public List<Data> parkingList;
+        public List<SeattleBuildingPermit> seattleBuildingPermits;
         public Context context;
 
-        private MyAppAdapter(List<Data> apps, Context context) {
-            this.parkingList = apps;
+        private SeattleBuildingPermitAdapter(List<SeattleBuildingPermit> seattleBuildingPermits, Context context) {
+            this.seattleBuildingPermits = seattleBuildingPermits;
             this.context = context;
         }
 
         @Override
         public int getCount() {
-            return parkingList.size();
+            return seattleBuildingPermits.size();
         }
 
         @Override
@@ -279,9 +284,9 @@ public class SwipingActivity extends AppCompatActivity {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            viewHolder.DataText.setText(parkingList.get(position).getDescription() + "");
+            viewHolder.DataText.setText(seattleBuildingPermits.get(position).getDescription() + "");
 
-            Glide.with(SwipingActivity.this).load(parkingList.get(position).getImagePath()).into(viewHolder.cardImage);
+            Glide.with(SwipingActivity.this).load(seattleBuildingPermits.get(position).getImagePath()).into(viewHolder.cardImage);
 
             return rowView;
         }

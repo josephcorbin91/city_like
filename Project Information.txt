@@ -1,6 +1,7 @@
 USEFUL INFORMATION 
-Skills Acquired:
+Skills and Technologies Acquired:
 -Facebook Integration, using single Sign-On
+-StreetView api request
 
 
 Herok Login Credentials

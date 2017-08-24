@@ -19,6 +19,8 @@ public class SeattleBuildingPermit extends DataSupport implements Serializable {
     private Integer permitNumber;
 
     @Column
+    private String imagePath;
+    @Column
     private String category;
 
     @Column
@@ -47,9 +49,23 @@ public class SeattleBuildingPermit extends DataSupport implements Serializable {
         this.description = description;
         this.date = date;
         this.address = address;
+        this.imagePath = "http://www.bridge-chailley.fr/wp-content/uploads/2013/04/D%C3%A9fense-quartier.jpg";
         this.value = value;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+        return "Permit Number : " + permitNumber + " , Address : " + address + " , Description : " + description;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public Integer getPermitNumber() {

@@ -18,6 +18,7 @@ import butterknife.OnClick;
 
 
 import com.android.jco.citylike_android.R;
+import com.android.jco.citylike_android.api.CityLikeApiService;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -104,14 +105,20 @@ public class LoginActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             super.run();
+                            System.out.println("IN API SERVICE SWIPING ");
+                            CityLikeApiService apiService = new CityLikeApiService();
+                            apiService.getAllSeattleBuilingPermit(getApplicationContext());
 
 
-                            sleep(10000);
+                            sleep(5000);
                         } catch (Exception e) {
 
                         } finally {
 
+
+
                             Intent startSwipingActivity = new Intent(LoginActivity.this, SwipingActivity.class);
+
                             startActivity(startSwipingActivity);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
