@@ -1,5 +1,27 @@
 USEFUL INFORMATION 
+Skills and Technologies Acquired:
+-Facebook Integration, using single Sign-On
+-StreetView api request
 
+
+Herok Login Credentials
+username : joseph.corbin91@yahoo.com		
+password : ulc212976
+
+Slack D4D
+Data for Democracy 
+
+DataWorld
+e-mail : joseph.corbin91@yahoo.com
+username: joseph-corbin91
+Full Name : Joseph Corbin
+Password : ulc212976
+
+Android Keystore
+For C:\Users\jco\.android\debug.keystore
+Password is android
+Certificate given and used for facebook development key hash.
+5Y8G0R+4TzVqdi8NIqcV0HXNduY=
 
 Starting the  server
 C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe --dbpath C:\Program Files\MongoDB\Server\3.4\data\db
