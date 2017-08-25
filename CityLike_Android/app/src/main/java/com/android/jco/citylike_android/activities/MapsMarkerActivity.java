@@ -63,11 +63,11 @@ public class MapsMarkerActivity extends AppCompatActivity
                 .title("Your location"));
         googleMap.addMarker(new MarkerOptions().position(buildingPermitLatLng)
                 .title("Building location"));
-     /*  for(Location location : locationList) {
+       for(Location location : locationList) {
             googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude()))
                     .title(((SeattleBuildingPermit)location.getExtras().getSerializable("SeattleBuildingPermit")).getAddress()));
         }
-        */
+
         CameraPosition cameraPosition = new CameraPosition.Builder().target(buildingPermitLatLng).zoom(16).bearing(90).tilt(30).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 

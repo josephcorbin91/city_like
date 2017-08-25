@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -64,13 +66,51 @@ public class SwipingActivity extends AppCompatActivity {
     private FloatingActionButton swipe_card_map_button;
     public static final String BASE_URL = "https://citylike1.herokuapp.com/";
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.swipe_menu_city_hall_action:
+                Toast.makeText(getApplicationContext(), "Contact City Official", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.swipe_menu_map_action:
+                Toast.makeText(getApplicationContext(), "Contact City Official", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return false;
+
+
+
+
+
+
+        }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.swipe_menu,menu);
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         checkLocationPermission();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.swiping_activity);
         LitePal.initialize(this);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Toolbar toolbarBottom =(Toolbar)findViewById(R.id.toolbar_bottom);
+        toolbarBottom.inflateMenu(R.menu.swipe_menu_bottom);
 
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return false;
+            }
+        });
 
         try {
 
@@ -277,8 +317,9 @@ public class SwipingActivity extends AppCompatActivity {
                             bundle.putSerializable("SeattleBuildingPermit", seattleBuildingPermits.get(i));
                             targetLocation.setExtras(bundle);
                             targetLocation.setLongitude(seattleBuildingPermits.get(i).getLongitude());
-                            targetLocation.setLongitude(seattleBuildingPermits.get(i).getLongitude());
+                            targetLocation.setLatitude(seattleBuildingPermits.get(i).getLatitude());
                             locationArrayList.add(targetLocation);
+                            System.out.println("Locations : "  +targetLocation.toString());
                         }
                         startMapActivity(locationArrayList.get(position),locationArrayList);
                     }

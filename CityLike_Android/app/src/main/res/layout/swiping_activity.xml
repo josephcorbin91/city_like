@@ -19,43 +19,16 @@ tools:context=".activities.SwipingActivity">
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:id="@+id/toolbar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:elevation="4dp"
+        android:popupTheme="@style/Theme.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:background="?attr/colorPrimary"/>
-<!--
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/content">
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
-
-            <com.balysv.materialmenu.MaterialMenuView
-                android:id="@+id/material_menu_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:mm_strokeWidth="2"
-                app:mm_color="#ffcc0000"
-                app:mm_transformDuration="3000"
-                app:mm_scale="6"/>
-        </FrameLayout>
-
-
-
-
-    </RelativeLayout>
--->
-    <!-- activity view -->
     <FrameLayout
         android:layout_width="match_parent"
 
-        android:layout_height="match_parent"
+        android:layout_height="495dp"
         android:background="#232123">
 
 
@@ -67,6 +40,11 @@ tools:context=".activities.SwipingActivity">
             app:rotation_degrees="15.5" />
 
     </FrameLayout>
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"  android:id="@+id/toolbar_bottom" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@color/cardview_light_background" android:minHeight="?attr/actionBarSize" app:theme="@style/Base.Theme.AppCompat.CompactMenu" >
+
+    </android.support.v7.widget.Toolbar>
+
 
 </LinearLayout>
 

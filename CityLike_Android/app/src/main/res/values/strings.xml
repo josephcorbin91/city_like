@@ -12,6 +12,8 @@
 
     <!-- Activity Swiping -->
     <string name="title_activity_swiping">Swiping</string>
+    <string name="swipe_menu_city_hall_title">City Hall</string>
+    <string name="swipe_menu_map_title">Menu</string>
 
 
 </resources>
