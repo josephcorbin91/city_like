@@ -3,6 +3,7 @@ package com.android.jco.citylike_android.api;
 
 
 import android.content.Context;
+import android.widget.Toast;
 
 
 import com.android.jco.citylike_android.models.SeattleBuildingPermit;
@@ -68,7 +69,8 @@ public class CityLikeApiService {
         });
 
     }
-    public void getAllSeattleBuilingPermit(Context context) throws Exception {
+    public void getAllSeattleBuilingPermit(final Context context) throws Exception {
+
 
         Call<List<SeattleBuildingPermit>> getAllSeattleBuildingPermitCall = apiService.getAllSeattleBuilingPermitS();
 
@@ -85,6 +87,8 @@ public class CityLikeApiService {
                         seattleBuildingPermit.saveThrows();
 
                 }
+
+                Toast.makeText(context, "UPLOAD DONE", Toast.LENGTH_SHORT).show();
 
 
 

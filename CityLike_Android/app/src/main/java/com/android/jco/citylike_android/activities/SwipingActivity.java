@@ -24,8 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.jco.citylike_android.R;
-import com.android.jco.citylike_android.api.CityLikeApiService;
-import com.android.jco.citylike_android.models.Data;
 import com.android.jco.citylike_android.models.SeattleBuildingPermit;
 import com.android.jco.citylike_android.services.ApiIntentService;
 import com.balysv.materialmenu.MaterialMenuDrawable;
@@ -68,17 +66,13 @@ public class SwipingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        checkLocationPermission();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         LitePal.initialize(this);
 
 
         try {
-           // retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-
-            System.out.println("IN API SERVICE SWIPING ");
-            CityLikeApiService apiService = new CityLikeApiService();
-            apiService.getAllSeattleBuilingPermit(getApplicationContext());
 
 
 
@@ -276,7 +270,18 @@ public class SwipingActivity extends AppCompatActivity {
                 viewHolder.swipe_card_map_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        checkLocationPermission();                    }
+                        ArrayList<Location> locationArrayList = new ArrayList<Location>();
+                        for(int i=0; i <seattleBuildingPermits.size();i++) {
+                            Location targetLocation = new Location("Building Location");
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("SeattleBuildingPermit", seattleBuildingPermits.get(i));
+                            targetLocation.setExtras(bundle);
+                            targetLocation.setLongitude(seattleBuildingPermits.get(i).getLongitude());
+                            targetLocation.setLongitude(seattleBuildingPermits.get(i).getLongitude());
+                            locationArrayList.add(targetLocation);
+                        }
+                        startMapActivity(locationArrayList.get(position),locationArrayList);
+                    }
                 });
 
                 rowView.setTag(viewHolder);
@@ -301,7 +306,7 @@ public class SwipingActivity extends AppCompatActivity {
     public void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED ) {
 
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -324,23 +329,29 @@ public class SwipingActivity extends AppCompatActivity {
                 // result of the request.
             }
         }
-        getLocation();
     }
 
-    public void getLocation(){
+    public void startMapActivity(Location buildingLocation, ArrayList<Location> locationList){
 
+        final Location mLocation = buildingLocation;
+        final ArrayList<Location> mLocationList = locationList;
+
+        System.out.println("locationList");
+        for(Location location : locationList)
+            System.out.println(location.getExtras().getSerializable("SeattleBuildingPermit"));
         mFusedLocationClient.getLastLocation().
 
                 addOnSuccessListener(this,new OnSuccessListener<Location>() {
                     @Override
-                    public void onSuccess (Location location){
-                        if (location != null) {
+                            public void onSuccess (Location location){
+                                if (location != null) {
                             Intent intent = new Intent(SwipingActivity.this, MapsMarkerActivity.class);
                             intent.putExtra("CurrentLocation",location);
-                            location.setLatitude(location.getLatitude()+0.00001f);
-                            location.setLongitude(location.getLongitude()+0.00001f);
+                            intent.putExtra("allLocations",mLocationList);
 
-                            intent.putExtra("buildingPermitLocation",location);
+
+
+                            intent.putExtra("buildingPermitLocation",mLocation);
 
 
                             startActivity(intent);
@@ -365,7 +376,6 @@ public class SwipingActivity extends AppCompatActivity {
                     // contacts-related task you need to do.
 
 
-                    getLocation();
                 } else {
 
                     // permission denied, boo! Disable the

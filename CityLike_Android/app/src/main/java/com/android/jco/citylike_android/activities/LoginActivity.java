@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.media.MediaRouteProvider;
 import android.util.AttributeSet;
@@ -27,6 +28,8 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import org.litepal.LitePal;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -51,7 +54,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        LitePal.initialize(this);
 
+        try {
+            CityLikeApiService apiService = new CityLikeApiService();
+            apiService.getAllSeattleBuilingPermit(getApplicationContext());
+        }
+        catch(Exception ex){
+
+        }
 
 
         callbackManager = CallbackManager.Factory.create();
@@ -59,7 +70,15 @@ public class LoginActivity extends AppCompatActivity {
         AppEventsLogger.activateApp(this);
 
         login_activity_button_sign_in = (Button)findViewById(R.id.login_activity_button_sign_in);
+        FloatingActionButton swipeButton = (FloatingActionButton) findViewById(R.id.swipe);
+        swipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, SwipingActivity.class));
+            }
+        });
         loginButton = (LoginButton)findViewById(R.id.facebook_login_button);
+
 
         loginButton.setReadPermissions("email");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -99,34 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 login_activity_video.start();
 
-                Thread welcomeThread = new Thread() {
 
-                    @Override
-                    public void run() {
-                        try {
-                            super.run();
-                            System.out.println("IN API SERVICE SWIPING ");
-                            CityLikeApiService apiService = new CityLikeApiService();
-                            apiService.getAllSeattleBuilingPermit(getApplicationContext());
-
-
-                            sleep(5000);
-                        } catch (Exception e) {
-
-                        } finally {
-
-
-
-                            Intent startSwipingActivity = new Intent(LoginActivity.this, SwipingActivity.class);
-
-                            startActivity(startSwipingActivity);
-                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
-                        }
-                    }
-                };
-
-                welcomeThread.start();
             }
         });
 

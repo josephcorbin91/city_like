@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.jco.citylike_android.R;
+import com.android.jco.citylike_android.models.SeattleBuildingPermit;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -13,6 +14,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
@@ -20,6 +24,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
     private Location currentLocation,buildingPermitLocation;
+    private ArrayList<Location> locationList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +34,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         // when the map is ready to be used.
         currentLocation = (Location) getIntent().getExtras().getParcelable("CurrentLocation");
         buildingPermitLocation = (Location) getIntent().getExtras().getParcelable("buildingPermitLocation");
+        locationList = (ArrayList<Location>)getIntent().getExtras().getParcelableArrayList("allLocations");
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -57,12 +63,16 @@ public class MapsMarkerActivity extends AppCompatActivity
                 .title("Your location"));
         googleMap.addMarker(new MarkerOptions().position(buildingPermitLatLng)
                 .title("Building location"));
+        for(Location location : locationList) {
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude()))
+                    .title(((SeattleBuildingPermit)location.getExtras().getSerializable("SeattleBuildingPermit")).getAddress()));
+        }
         CameraPosition cameraPosition = new CameraPosition.Builder().target(buildingPermitLatLng).zoom(16).bearing(90).tilt(30).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
 
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(16f));
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(buildingPermitLatLng));
     }
 }
