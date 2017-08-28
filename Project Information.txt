@@ -2,6 +2,10 @@ USEFUL INFORMATION
 Skills and Technologies Acquired:
 -Facebook Integration, using single Sign-On
 -StreetView api request
+-Used mocha for testing mongoose db 
+
+Websites 
+local authentication with passport and express
 
 
 Herok Login Credentials
