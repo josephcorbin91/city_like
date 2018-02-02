@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
 
     private ImageView splashScreenIcon;
@@ -35,7 +35,7 @@ public class SplashScreen extends AppCompatActivity {
 
                 } finally {
 
-                    Intent startLoginActivity = new Intent(SplashScreen.this, LoginActivity.class);
+                    Intent startLoginActivity = new Intent(SplashScreenActivity.this, IntroductionVideoActivity.class);
                     startActivity(startLoginActivity);
                     overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
                 }

@@ -3,9 +3,10 @@
 
     <!-- Activity Login -->
     <string name="title_activity_login">Login</string>
-    <string name="login_activity_button_sign_in">Sign in</string>
-    <string name="login_activity_terms_of_service">Terms of Service</string>
-    <string name="login_activity_city_like">CityLike</string>
+    <string name="login_activity_button_sign_in">SIGN UP</string>
+    <string name="already_a_member_login">ALREADY A MEMBER? LOG IN </string>
+    <string name="login_activity_city_like">CityLike </string>
+    <string name="login_activity_slogan">Control your city! </string>
     <string name="facebook_app_id">1711694449125611</string>
     <string name="fb_login_protocol_scheme">fb1711694449125611</string>
 
@@ -14,6 +15,8 @@
     <string name="title_activity_swiping">Swiping</string>
     <string name="swipe_menu_city_hall_title">City Hall</string>
     <string name="swipe_menu_map_title">Menu</string>
+
+
 
 
 </resources>

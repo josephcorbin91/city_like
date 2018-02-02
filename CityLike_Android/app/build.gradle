@@ -10,6 +10,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
     buildTypes {
         release {
@@ -52,6 +57,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.25.0'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.jakewharton:butterknife-compiler:8.5.1'
+
     compile 'com.lorentzos.swipecards:library:1.0.9'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
