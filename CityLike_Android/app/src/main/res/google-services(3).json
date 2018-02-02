@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "731223287395",
+    "firebase_url": "https://city-like.firebaseio.com",
+    "project_id": "city-like",
+    "storage_bucket": "city-like.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731223287395:android:298aa6e7ce391be5",
+        "android_client_info": {
+          "package_name": "com.android.jco.citylike_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731223287395-b4kpog8vi0jhd5em46hqbi35puiif5pt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGMY3aSBFvpq0QWn9Hzr0bENg9kjiJcqU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
