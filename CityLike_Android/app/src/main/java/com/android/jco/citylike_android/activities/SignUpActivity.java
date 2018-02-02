@@ -12,10 +12,7 @@ import android.widget.VideoView;
 
 import com.android.jco.citylike_android.R;
 import com.android.jco.citylike_android.api.CityLikeApiService;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.widget.LoginButton;
+
 
 import org.litepal.LitePal;
 
@@ -33,19 +30,16 @@ public class SignUpActivity extends AppCompatActivity {
 
     private VideoView login_activity_video;
     private MediaController mediaControls;
-    private LoginButton loginButton;
-    private CallbackManager callbackManager;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_detail);
 
         ButterKnife.bind(this);
 
