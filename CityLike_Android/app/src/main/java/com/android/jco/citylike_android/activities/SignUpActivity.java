@@ -16,7 +16,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.widget.LoginButton;
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.litepal.LitePal;
 
@@ -32,7 +31,6 @@ public class SignUpActivity extends AppCompatActivity {
     Button email_login_button;
 
 
-    private FirebaseAuth mAuth;
     private VideoView login_activity_video;
     private MediaController mediaControls;
     private LoginButton loginButton;
